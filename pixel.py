@@ -216,13 +216,13 @@ def push_awtrix(payload):
     client.username_pw_set(MQTT_USER, MQTT_PASS)
     client.connect(MQTT_BROKER, 1883, 60)
 
-    # 1️⃣ Destroy previous "weather" app (important for refresh)
+    #Destroy previous "weather" app (important for refresh)
     destroy_topic = f"{AWTRIX_UID}/custom/weather/destroy"
     client.publish(destroy_topic, "1")
 
     time.sleep(0.05)  # allow AWTRIX firmware to process
 
-    # 2️⃣ Push new weather data
+    #Push new weather data
     topic = f"{AWTRIX_UID}/custom/weather"
     client.publish(topic, json.dumps(payload))
 
@@ -353,7 +353,7 @@ def loop():
             }
 
             push_awtrix(payload)
-            print("Sent:", text)
+            #print("Sent:", text)
 
         except Exception as e:
             print("Error:", e)
@@ -365,3 +365,4 @@ if __name__ == "__main__":
     mqtt_lightning_listener()
     mqtt_pm25_listener()
     loop()
+
